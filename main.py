@@ -32,7 +32,7 @@ def csv_processing(contacts_list):
 
 
 def list_clearning(phonebook):
-    new_phonebook = []
+    new_phonebook = [['lastname', 'firstname', 'surname', 'organization', 'position', 'phone', 'email']]
     add_contacts = []
     for i in range(len(phonebook)):
         for j in range(i + 1, len(phonebook)):
@@ -47,13 +47,14 @@ def list_clearning(phonebook):
                         else:
                             person.append(phonebook[j][num])
                     new_phonebook.append(person)
+                    add_contacts.append(name_surname)
                     flag = True
             else:
                 flag = True
                 break
-        if not flag:
+        if not flag and name_surname not in add_contacts:
             new_phonebook.append(phonebook[i])
-        add_contacts.append(name_surname)
+            add_contacts.append(name_surname)
     return new_phonebook
 
 
@@ -62,7 +63,6 @@ def main():
     phonebook = csv_processing(contacts_list)
     new_phonebook = list_clearning(phonebook)
     save_csv(new_phonebook)
-
 
 if __name__ == '__main__':
     main()
